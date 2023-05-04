@@ -1,2 +1,3 @@
 # notebeans
-Minimalist note-taking app
+
+A new Flutter project.
