@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:notebeans/note_home_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notebeans/blocs/note_bloc.dart';
+import 'package:notebeans/screens/note_home_page.dart';
+import 'package:notebeans/utils/centre.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +19,13 @@ class Notebeans extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: const HomePage());
+    return MaterialApp(
+      theme: ThemeData(
+          textSelectionTheme:
+              TextSelectionThemeData(cursorColor: Centre.linkColor)),
+      home: MultiBlocProvider(providers: [
+        BlocProvider<NoteBloc>(create: (BuildContext context) => NoteBloc()),
+      ], child: HomePage()),
+    );
   }
 }
