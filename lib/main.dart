@@ -5,12 +5,13 @@ import 'package:notebeans/blocs/note_bloc.dart';
 import 'package:notebeans/screens/note_home_page.dart';
 import 'package:notebeans/utils/centre.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
+  await Future.delayed(const Duration(milliseconds: 100));
   runApp(const Notebeans());
 }
 
