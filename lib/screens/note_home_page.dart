@@ -16,6 +16,8 @@ import '../utils/centre.dart';
 class HomePage extends StatelessWidget {
   HomePage({super.key});
   final scrollController = ScrollController();
+  List<int> extents =
+      List<int>.generate(10000, (int index) => Random().nextInt(18) + 18);
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,9 @@ class HomePage extends StatelessWidget {
                         ? SizedBox(
                             height: Centre.safeBlockVertical * 5,
                           )
-                        : NoteTile(note: currentNote!, index: index - 2);
+                        : NoteTile(
+                            note: currentNote!,
+                            randomHeight: extents[index - 2]);
                   },
                 );
               }),
@@ -62,8 +66,8 @@ class HomePage extends StatelessWidget {
 
 class NoteTile extends StatefulWidget {
   final Note note;
-  final int index;
-  const NoteTile({super.key, required this.note, required this.index});
+  final int randomHeight;
+  const NoteTile({super.key, required this.note, required this.randomHeight});
 
   @override
   State<NoteTile> createState() => _NoteTileState();
@@ -73,8 +77,6 @@ class _NoteTileState extends State<NoteTile> {
   late QuillController controller;
   late NoteBloc _noteBloc;
   late ScrollController scrollController;
-  List<int> extents =
-      List<int>.generate(10000, (int index) => Random().nextInt(18) + 18);
 
   // The reference to the navigator
   late NavigatorState _navigator;
@@ -134,7 +136,7 @@ class _NoteTileState extends State<NoteTile> {
           BoxShadow(
             color: Centre.darkerShadowColor,
             spreadRadius: 0.01,
-            blurRadius: 12,
+            blurRadius: 8,
             offset: const Offset(4, 4),
           ),
           BoxShadow(
@@ -144,7 +146,7 @@ class _NoteTileState extends State<NoteTile> {
             offset: const Offset(-4, -4),
           )
         ], color: Centre.tileBgColor, borderRadius: BorderRadius.circular(8)),
-        height: Centre.safeBlockVertical * extents[widget.index],
+        height: Centre.safeBlockVertical * widget.randomHeight,
         child: Column(children: [
           Padding(
             padding: EdgeInsets.fromLTRB(
